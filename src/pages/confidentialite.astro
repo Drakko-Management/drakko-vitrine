@@ -36,8 +36,10 @@ import Page from '../layouts/Page.astro';
       </li>
       <li>
         <strong>Techniques :</strong> pour empêcher les robots, un service tiers reçoit des informations
-        techniques de votre navigateur au moment de l'inscription (voir plus bas).
-        <span class="draft-todo">À VÉRIFIER</span> : journaux techniques de l'hébergeur de l'API.
+        techniques de votre navigateur et votre adresse IP au moment de l'inscription (voir plus bas). Votre
+        adresse IP sert aussi à limiter le nombre de demandes par minute : ce compteur est gardé en mémoire, sans
+        être enregistré dans la base. Notre API n'écrit dans ses journaux ni votre adresse email ni votre adresse
+        IP, seulement la route appelée et sa durée.
       </li>
     </ul>
 
@@ -66,19 +68,27 @@ import Page from '../layouts/Page.astro';
     <h2>Qui y a accès ?</h2>
     <p>L'équipe de Drakko, et les prestataires qui font fonctionner le site et l'inscription :</p>
     <ul>
-      <li>Vercel : hébergement du site.</li>
+      <li>Vercel Inc. (États-Unis) : hébergement du site.</li>
       <li>
-        <span class="draft-todo">À COMPLÉTER</span> : hébergeur de l'API et de la base de données (nom, pays).
+        Railway Corporation (États-Unis) : hébergement de l'API et de la base de données qui enregistrent vos
+        informations, sur des serveurs situés à Amsterdam (Pays-Bas).
       </li>
-      <li>Resend : envoi de l'email de confirmation.</li>
       <li>
-        Cloudflare (Turnstile) : vérification anti-robots. Elle n'est chargée que lorsque vous utilisez le
-        formulaire.
+        Resend (Plus Five Five, Inc., États-Unis) : envoi de l'email de confirmation, qui reçoit donc votre
+        adresse email.
+      </li>
+      <li>
+        Cloudflare, Inc. (États-Unis), avec son service Turnstile : vérification anti-robots. Elle n'est
+        chargée que lorsque vous utilisez le formulaire.
       </li>
     </ul>
     <p>
-      <span class="draft-todo">À COMPLÉTER</span> : transferts éventuels de données hors de l'Union européenne
-      et garanties correspondantes.
+      Vos informations sont enregistrées dans l'Union européenne, mais ces quatre prestataires sont des sociétés
+      américaines : votre adresse email transmise à Resend, votre adresse IP transmise à Cloudflare, et les
+      accès techniques à l'hébergement peuvent donc concerner des données traitées hors de l'Union européenne.
+      Ces transferts reposent sur le cadre de protection des données UE–États-Unis (Data Privacy Framework),
+      auquel Vercel, Cloudflare et Resend déclarent adhérer, et, selon le prestataire, sur les clauses
+      contractuelles types de la Commission européenne prévues par leurs accords de traitement des données.
     </p>
 
     <h2>Vos droits</h2>
@@ -99,8 +109,9 @@ import Page from '../layouts/Page.astro';
     <p>
       Ce site ne dépose aucun cookie de mesure d'audience ni de publicité. Sur la page ouverte depuis le lien de
       l'email, le lien est gardé le temps de votre visite dans l'onglet (il disparaît à sa fermeture), pour que
-      le rechargement de la page fonctionne.
-      <span class="draft-todo">À VÉRIFIER</span> : éventuel stockage déposé par Cloudflare Turnstile.
+      le rechargement de la page fonctionne. Le service anti-robots de Cloudflare, chargé seulement lorsque vous
+      utilisez le formulaire, peut conserver des informations techniques dans votre navigateur, selon sa propre
+      politique.
     </p>
   </div>
 </Page>
