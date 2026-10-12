@@ -5,7 +5,7 @@ Site teaser de `drakko.fr` : une page unique qui présente Drakko et recueille u
 Les textes viennent de `01-docs/11-teaser-content.md` (dépôt `drakko-docs`), les choix de fond de l'ADR-020 dans `01-docs/08-decisions.md`.
 
 ## Commandes
-Node ≥ 22.12.
+Node 22 (`.nvmrc` ; Astro 7 exige 22.12 au minimum) : `nvm use` dans le dossier, `nvm install` si la version manque.
 
 - `npm install`
 - `npm run dev` : site local sur http://localhost:4321. L'API est cherchée sur `http://localhost:3100` sauf si `PUBLIC_API_URL` est définie.
