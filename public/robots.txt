@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /confirmation
+Disallow: /desinscription

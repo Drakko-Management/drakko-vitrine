@@ -1,0 +1,106 @@
+---
+import Page from '../layouts/Page.astro';
+---
+
+<Page title="Politique de confidentialité — Drakko" width="text">
+  <p class="draft-banner">
+    Version provisoire. Les passages en <span class="draft-todo">À COMPLÉTER</span> attendent des informations
+    qui ne sont pas encore connues, et le texte doit être relu par un juriste avant la mise en ligne. Il décrit
+    ce que le site fait aujourd'hui : le texte de consentement et ce descriptif doivent rester d'accord.
+  </p>
+
+  <h1>Politique de confidentialité</h1>
+
+  <div class="prose">
+    <p>
+      Ce site présente Drakko, une application de suivi de chantier en cours de finalisation, et permet de
+      laisser son adresse pour être prévenu de son lancement.
+    </p>
+
+    <h2>Qui est responsable de vos données ?</h2>
+    <p>
+      <span class="draft-todo">À COMPLÉTER</span> : nom ou raison sociale de l'éditeur, adresse et contact (voir
+      les <a href="/mentions-legales">mentions légales</a>).
+    </p>
+
+    <h2>Quelles données collectons-nous ?</h2>
+    <ul>
+      <li>
+        <strong>À l'inscription :</strong> votre adresse email, la date de votre accord et la version du
+        texte que vous avez accepté.
+      </li>
+      <li>
+        <strong>Si vous complétez votre fiche (facultatif) :</strong> prénom, entreprise, métier, taille de
+        l'équipe, téléphone, votre réponse libre, et votre demande éventuelle de tester Drakko en avant-première
+        avec la date de votre accord pour être contacté.
+      </li>
+      <li>
+        <strong>Techniques :</strong> pour empêcher les robots, un service tiers reçoit des informations
+        techniques de votre navigateur au moment de l'inscription (voir plus bas).
+        <span class="draft-todo">À VÉRIFIER</span> : journaux techniques de l'hébergeur de l'API.
+      </li>
+    </ul>
+
+    <h2>Pourquoi, et sur quelle base ?</h2>
+    <ul>
+      <li>Vous prévenir du lancement de Drakko : votre <strong>consentement</strong>.</li>
+      <li>
+        Vous contacter pour organiser un test en avant-première, si vous l'avez demandé : votre
+        <strong>consentement</strong>, donné séparément.
+      </li>
+    </ul>
+    <p>Vos données ne servent à rien d'autre et ne sont pas vendues.</p>
+
+    <h2>Combien de temps les gardons-nous ?</h2>
+    <ul>
+      <li>
+        Une adresse que vous n'avez pas confirmée par le lien de l'email est supprimée automatiquement, au plus
+        tard quelques jours après l'expiration du lien (7 jours).
+      </li>
+      <li>
+        Une adresse confirmée est gardée jusqu'à votre désinscription, et au plus
+        <span class="draft-todo">À FIXER</span> après notre dernier contact (proposition : trois ans).
+      </li>
+    </ul>
+
+    <h2>Qui y a accès ?</h2>
+    <p>L'équipe de Drakko, et les prestataires qui font fonctionner le site et l'inscription :</p>
+    <ul>
+      <li>Vercel : hébergement du site.</li>
+      <li>
+        <span class="draft-todo">À COMPLÉTER</span> : hébergeur de l'API et de la base de données (nom, pays).
+      </li>
+      <li>Resend : envoi de l'email de confirmation.</li>
+      <li>
+        Cloudflare (Turnstile) : vérification anti-robots. Elle n'est chargée que lorsque vous utilisez le
+        formulaire.
+      </li>
+    </ul>
+    <p>
+      <span class="draft-todo">À COMPLÉTER</span> : transferts éventuels de données hors de l'Union européenne
+      et garanties correspondantes.
+    </p>
+
+    <h2>Vos droits</h2>
+    <p>
+      Vous pouvez à tout moment accéder à vos données, les corriger, les faire effacer, vous opposer à leur
+      traitement, en demander la limitation ou la portabilité, et retirer votre consentement. Pour vous
+      désinscrire, utilisez le lien « supprimer mon adresse » de l'email de confirmation : votre fiche entière
+      est alors supprimée. Pour toute autre demande, écrivez à <span class="draft-todo">À COMPLÉTER</span>.
+    </p>
+    <p>
+      Si vous estimez que vos droits ne sont pas respectés, vous pouvez saisir la CNIL (<a
+        href="https://www.cnil.fr"
+        rel="noopener">cnil.fr</a
+      >).
+    </p>
+
+    <h2>Cookies et stockage dans votre navigateur</h2>
+    <p>
+      Ce site ne dépose aucun cookie de mesure d'audience ni de publicité. Sur la page ouverte depuis le lien de
+      l'email, le lien est gardé le temps de votre visite dans l'onglet (il disparaît à sa fermeture), pour que
+      le rechargement de la page fonctionne.
+      <span class="draft-todo">À VÉRIFIER</span> : éventuel stockage déposé par Cloudflare Turnstile.
+    </p>
+  </div>
+</Page>

@@ -1,0 +1,15 @@
+# Dépendances et fichiers générés
+node_modules/
+dist/
+.astro/
+.vercel/
+coverage/
+*.tsbuildinfo
+
+# Variables d'environnement : jamais dans le dépôt
+.env
+.env.*
+!.env.example
+
+# Système
+.DS_Store

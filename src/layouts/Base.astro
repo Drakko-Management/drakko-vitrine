@@ -1,0 +1,84 @@
+---
+import '@fontsource-variable/plus-jakarta-sans';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  // Une page peut refuser l'indexation (confirmation, désinscription, textes provisoires) ; la vitrine entière
+  // reste « noindex » tant que PUBLIC_INDEXABLE n'est pas « true » (production)
+  indexable?: boolean;
+  // Pages dont l'adresse porte un jeton : jamais d'en-tête Referer
+  noReferrer?: boolean;
+  headerMode?: 'overlay' | 'solid';
+}
+
+const {
+  title = site.title,
+  description = site.description,
+  indexable = true,
+  noReferrer = false,
+  headerMode = 'solid',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, `${site.url}/`).href;
+const robots = site.indexable && indexable ? 'index, follow' : 'noindex, nofollow';
+const image = `${site.url}/og.png`;
+
+// Politique de sécurité du contenu : tout vient du site lui-même, sauf l'anti-robots (script et cadre
+// Cloudflare) et l'API. Seulement dans la version construite : le serveur de développement injecte du code
+// en ligne que cette politique refuserait.
+const apiOrigin = new URL(site.apiUrl).origin;
+const csp = [
+  "default-src 'self'",
+  "script-src 'self' https://challenges.cloudflare.com",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data:",
+  "font-src 'self'",
+  `connect-src 'self' ${apiOrigin} https://challenges.cloudflare.com`,
+  'frame-src https://challenges.cloudflare.com',
+  "base-uri 'self'",
+  "form-action 'self'",
+  "object-src 'none'",
+].join('; ');
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    {import.meta.env.PROD && <meta http-equiv="Content-Security-Policy" content={csp} />}
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {noReferrer && <meta name="referrer" content="no-referrer" />}
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    <meta name="theme-color" content="#032042" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Drakko : Pilotez. Organisez. Avancez." />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body data-api-url={site.apiUrl} data-turnstile-site-key={site.turnstileSiteKey}>
+    <a class="skip-link" href="#contenu">Aller au contenu</a>
+    <Header mode={headerMode} />
+    <main id="contenu">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

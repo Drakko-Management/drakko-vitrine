@@ -1,0 +1,82 @@
+---
+const points = [
+  {
+    title: 'Un chantier signé ne bouge plus',
+    text: 'Une fois envoyé à la signature, un chantier ne se modifie plus. Un chantier signé ne se supprime jamais.',
+    icon: 'M6 11V8a6 6 0 1 1 12 0v3M5 11h14v10H5zM12 15v2',
+  },
+  {
+    title: 'Vos données restent les vôtres',
+    text: 'Les données de chaque entreprise sont séparées de celles des autres.',
+    icon: 'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z',
+  },
+  {
+    title: 'Des comptes protégés',
+    text: 'La double authentification est obligatoire pour les administrateurs.',
+    icon: 'M7 3h10v18H7zM11 18h2M10 6h4',
+  },
+];
+---
+
+<section class="section trust on-dark" aria-labelledby="confiance-titre">
+  <div class="container">
+    <p class="eyebrow" data-reveal>Confiance</p>
+    <h2 id="confiance-titre" data-reveal>Des règles pensées pour qu'on puisse s'y fier.</h2>
+
+    <ul class="trust__grid">
+      {
+        points.map((point) => (
+          <li class="trust__item" data-reveal>
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d={point.icon} />
+            </svg>
+            <h3>{point.title}</h3>
+            <p>{point.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .trust {
+    background: var(--navy-900);
+  }
+
+  .trust h2 {
+    margin-top: 0.75rem;
+    max-width: 22ch;
+  }
+
+  .trust__grid {
+    display: grid;
+    gap: 1rem;
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .trust__item {
+    display: grid;
+    gap: 0.6rem;
+    align-content: start;
+    padding: 1.75rem;
+    border: 1px solid var(--line-on-dark);
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .trust__item svg {
+    color: var(--orange-accent);
+    margin-bottom: 0.35rem;
+  }
+
+  .trust__item p {
+    color: var(--on-dark-soft);
+  }
+
+  @media (min-width: 52rem) {
+    .trust__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

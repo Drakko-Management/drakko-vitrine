@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Problem from '../components/Problem.astro';
+import Story from '../components/Story.astro';
+import Team from '../components/Team.astro';
+import Trust from '../components/Trust.astro';
+import Pilot from '../components/Pilot.astro';
+import Faq from '../components/Faq.astro';
+---
+
+<Base headerMode="overlay">
+  <Hero />
+  <Problem />
+  <Story />
+  <Team />
+  <Trust />
+  <Pilot />
+  <Faq />
+
+  <script>
+    import '../scripts/home';
+  </script>
+</Base>

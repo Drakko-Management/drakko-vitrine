@@ -1,0 +1,102 @@
+---
+interface Props {
+  // « overlay » : posé sur le haut de l'accueil, transparent jusqu'au premier scroll ; « solid » : marine
+  mode?: 'overlay' | 'solid';
+}
+const { mode = 'solid' } = Astro.props;
+---
+
+<header class="header" data-header data-mode={mode}>
+  <div class="container header__inner">
+    <a class="brand" href="/" aria-label="Drakko, retour à l'accueil">
+      <img src="/brand/mark-white-sm.webp" width="44" height="36" alt="" />
+      <span class="brand__name">DRAKKO</span>
+    </a>
+    <nav class="header__nav" aria-label="Principal">
+      <a href="/#recit">Le récit</a>
+      <a href="/#equipe">L'équipe</a>
+      <a href="/#faq">Questions</a>
+    </nav>
+    <a class="btn btn--small" href="/#rejoindre">Être prévenu</a>
+  </div>
+</header>
+
+<style>
+  .header {
+    z-index: 50;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-h);
+    color: var(--white);
+    background: var(--navy-900);
+    transition:
+      background-color 0.3s,
+      box-shadow 0.3s;
+  }
+
+  .header[data-mode='solid'] {
+    position: sticky;
+  }
+
+  .header[data-mode='overlay'] {
+    position: fixed;
+    background: transparent;
+  }
+
+  .header[data-mode='overlay'].is-solid {
+    background: rgba(2, 21, 41, 0.92);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 1px 0 var(--line-on-dark);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    height: 100%;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+  }
+
+  .brand img {
+    height: 2.25rem;
+    width: auto;
+  }
+
+  .brand__name {
+    font-weight: 800;
+    font-size: 1.125rem;
+    letter-spacing: 0.22em;
+  }
+
+  .header__nav {
+    display: none;
+    gap: 2rem;
+    margin-left: auto;
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+
+  .header__nav a {
+    text-decoration: none;
+    color: var(--on-dark-soft);
+    transition: color 0.2s;
+  }
+
+  .header__nav a:hover {
+    color: var(--white);
+  }
+
+  @media (min-width: 48rem) {
+    .header__nav {
+      display: flex;
+    }
+  }
+</style>

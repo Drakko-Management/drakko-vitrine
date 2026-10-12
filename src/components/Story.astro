@@ -1,0 +1,275 @@
+---
+// Le récit d'un chantier (01-docs/11-teaser-content.md, « Le récit du chantier »). Chaque phrase correspond à
+// une fonction réelle de l'application. Le HTML est complet et lisible sans script : empilé par défaut ;
+// src/scripts/story.ts passe en mode « épinglé » (téléphone fixe, étapes qui défilent) quand l'écran et les
+// préférences de l'internaute le permettent.
+import Phone from './Phone.astro';
+import Screen from './Screen.astro';
+
+const steps = [
+  {
+    title: 'Créer le chantier',
+    text: 'Client, adresse, équipe : le chantier est prêt en quelques instants.',
+    screen: 'create',
+  },
+  {
+    title: 'Photographier l’avant',
+    text: 'L’équipe photographie l’état de départ, depuis son téléphone.',
+    screen: 'before',
+  },
+  {
+    title: 'Suivre l’avancement',
+    text: 'Chacun suit l’avancement : planifié, en cours, terminé.',
+    screen: 'during',
+  },
+  {
+    title: 'Photographier l’après',
+    text: 'Photos après et commentaire final : le chef de chantier clôture.',
+    screen: 'after',
+  },
+  {
+    title: 'Faire signer le client',
+    text: 'Il reçoit un lien sécurisé par email, regarde les photos et le compte rendu, confirme que les travaux sont terminés et conformes, puis signe du doigt. Des réserves ? Il les note, et leur levée se signe plus tard.',
+    screen: 'sign',
+  },
+  {
+    title: 'Garder le procès-verbal',
+    text: 'Le PDF signé est généré, envoyé et archivé. Le chantier se verrouille, l’équipe est prévenue.',
+    screen: 'pdf',
+  },
+] as const;
+---
+
+<section class="story on-dark" id="recit" data-story aria-labelledby="recit-titre">
+  <div class="container story__intro">
+    <p class="eyebrow">Le récit d'un chantier</p>
+    <h2 id="recit-titre">Un chantier, du premier cliché à la signature.</h2>
+    <p class="lead">Six gestes, du téléphone de l'équipe à celui du client.</p>
+  </div>
+
+  <div class="story__track" data-story-track style={`--steps: ${steps.length}`}>
+    <div class="story__stage" data-story-stage>
+      <div class="container story__layout">
+        <ol class="story__steps">
+          {
+            steps.map((step, i) => (
+              <li class="step" data-step={i}>
+                <div class="step__text" data-step-text>
+                  <span class="step__num" aria-hidden="true">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <h3>{step.title}</h3>
+                  <p>{step.text}</p>
+                </div>
+                <div class="step__phone" data-step-phone>
+                  <Phone>
+                    <Screen name={step.screen} />
+                  </Phone>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+
+        <ol class="story__progress" aria-label="Aller à une étape du récit" data-story-progress>
+          {
+            steps.map((step, i) => (
+              <li>
+                <button type="button" data-goto={i} aria-label={`Étape ${i + 1} : ${step.title}`}>
+                  <span class="story__tick" />
+                </button>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <p class="container story__note">Écrans d'illustration, avec des données fictives.</p>
+</section>
+
+<style>
+  .story {
+    padding-top: clamp(4.5rem, 10vw, 8rem);
+    padding-bottom: 2.5rem;
+    background: var(--navy-950);
+  }
+
+  .story__intro {
+    display: grid;
+    gap: 1rem;
+    max-width: 46rem;
+    margin-bottom: clamp(3rem, 7vw, 5rem);
+    margin-left: max(var(--gutter), calc((100% - var(--maxw)) / 2));
+  }
+
+  .story__intro h2 {
+    margin-top: 0.25rem;
+  }
+
+  .story[data-pinned] .story__intro {
+    margin-bottom: 0;
+  }
+
+  /* ----- par défaut : les étapes s'empilent (sans script, mobile, « réduire les animations ») ----- */
+
+  .story__steps {
+    display: grid;
+    gap: clamp(3.5rem, 9vw, 6rem);
+  }
+
+  .step {
+    display: grid;
+    gap: 2rem;
+    justify-items: center;
+  }
+
+  .step__text {
+    display: grid;
+    gap: 0.6rem;
+    width: 100%;
+    max-width: 30rem;
+  }
+
+  .step__num {
+    font-size: clamp(2.75rem, 7vw, 4.25rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--orange-accent);
+  }
+
+  .step__text h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  .step__text p {
+    font-size: 1.125rem;
+    color: var(--on-dark-soft);
+  }
+
+  .step__phone {
+    --phone-w: min(15rem, 68vw);
+  }
+
+  .story__progress {
+    display: none;
+  }
+
+  .story__note {
+    margin-top: clamp(2.5rem, 6vw, 4rem);
+    font-size: 0.8125rem;
+    color: var(--on-dark-soft);
+    text-align: center;
+  }
+
+  @media (min-width: 62rem) {
+    .step {
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 6rem;
+      justify-items: start;
+      align-items: center;
+    }
+
+    .step:nth-child(even) {
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .step:nth-child(even) .step__text {
+      order: 2;
+    }
+
+    .step__phone {
+      --phone-w: 17rem;
+      justify-self: center;
+    }
+  }
+
+  /* ----- mode épinglé : un téléphone fixe, les étapes se succèdent au scroll ----- */
+
+  .story[data-pinned] .story__track {
+    height: calc(var(--steps) * 85vh);
+  }
+
+  .story[data-pinned] .story__stage {
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    height: 100svh;
+    padding-top: var(--header-h);
+  }
+
+  /* Le texte et le téléphone forment un seul ensemble, plus resserré que la largeur de la page */
+  .story[data-pinned] .story__layout {
+    position: relative;
+    width: min(100% - 2 * var(--gutter), 62rem);
+  }
+
+  .story[data-pinned] .story__steps {
+    display: grid;
+    gap: 0;
+  }
+
+  .story[data-pinned] .step,
+  .story[data-pinned] .step:nth-child(even) {
+    grid-area: 1 / 1;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: clamp(3rem, 8vw, 7rem);
+    justify-items: start;
+  }
+
+  .story[data-pinned] .step:nth-child(even) .step__text {
+    order: 0;
+  }
+
+  .story[data-pinned] .step__text {
+    pointer-events: none;
+  }
+
+  .story[data-pinned] .step__phone {
+    --phone-w: min(19.5rem, calc((100svh - var(--header-h) - 4rem) * 9 / 19.2));
+    justify-self: end;
+  }
+
+  .story[data-pinned] .story__progress {
+    position: absolute;
+    left: 0;
+    bottom: -0.5rem;
+    display: flex;
+    gap: 0.35rem;
+  }
+
+  .story__progress button {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .story__tick {
+    display: block;
+    width: 1.75rem;
+    height: 0.25rem;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.22);
+    transition:
+      background-color 0.3s,
+      width 0.3s;
+  }
+
+  .story__progress button:hover .story__tick {
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  .story__progress button[aria-current='step'] .story__tick {
+    width: 2.75rem;
+    background: var(--orange-accent);
+  }
+</style>

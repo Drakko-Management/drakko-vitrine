@@ -1,0 +1,76 @@
+---
+// Pages simples (confirmation, désinscription, textes légaux, 404) : le gabarit commun avec une colonne centrée.
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  indexable?: boolean;
+  noReferrer?: boolean;
+  // Colonne étroite pour un texte à lire, plus large pour un formulaire
+  width?: 'text' | 'form';
+}
+const { title, description, indexable = false, noReferrer = false, width = 'form' } = Astro.props;
+---
+
+<Base title={title} description={description} indexable={indexable} noReferrer={noReferrer}>
+  <section class="page section on-light">
+    <div class:list={['container', 'page__box', `page__box--${width}`]}>
+      <slot />
+    </div>
+  </section>
+</Base>
+
+<style is:global>
+  .page {
+    min-height: 70svh;
+    background: var(--sand-50);
+  }
+
+  .page__box {
+    display: grid;
+    gap: 1.25rem;
+    align-content: start;
+  }
+
+  .page__box--form {
+    max-width: 40rem;
+  }
+
+  .page__box--text {
+    max-width: 46rem;
+  }
+
+  .page h1 {
+    font-size: clamp(2rem, 5vw, 3.25rem);
+  }
+
+  .page .lead {
+    max-width: 36rem;
+  }
+
+  .page__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  /* Bandeau des textes qui attendent une relecture juridique */
+  .draft-banner {
+    padding: 1rem 1.25rem;
+    border: 1.5px solid var(--orange-600);
+    border-radius: var(--radius-sm);
+    background: var(--orange-100);
+    color: var(--orange-700);
+    font-weight: 600;
+  }
+
+  .draft-todo {
+    padding: 0.05rem 0.4rem;
+    border-radius: 0.35rem;
+    background: var(--orange-100);
+    color: var(--orange-700);
+    font-weight: 700;
+  }
+</style>

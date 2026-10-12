@@ -1,0 +1,41 @@
+---
+import Page from '../layouts/Page.astro';
+---
+
+<Page title="Se désinscrire — Drakko" noReferrer>
+  <div data-view="ready" hidden tabindex="-1">
+    <h1>Supprimer votre adresse ?</h1>
+    <p class="lead">
+      Votre adresse et les informations que vous avez pu ajouter seront effacées définitivement. Vous ne
+      recevrez plus rien de Drakko.
+    </p>
+    <div class="page__actions">
+      <button class="btn" type="button" data-confirm>Supprimer mon adresse</button>
+      <a class="btn btn--ghost" href="/">Annuler</a>
+    </div>
+    <p class="form-status" role="status" aria-live="polite" data-status></p>
+  </div>
+
+  <div data-view="done" hidden tabindex="-1">
+    <h1>C'est fait.</h1>
+    <p class="lead">Votre adresse et vos informations ont été supprimées. Nous ne vous écrirons plus.</p>
+    <div class="page__actions">
+      <a class="btn btn--ghost" href="/">Retour à l'accueil</a>
+    </div>
+  </div>
+
+  <div data-view="invalid" hidden tabindex="-1">
+    <h1>Ce lien n'est plus valable.</h1>
+    <p class="lead">
+      Il a expiré, ou votre adresse a déjà été supprimée. Si vous voulez qu'elle soit effacée, écrivez-nous
+      depuis la page de confidentialité.
+    </p>
+    <div class="page__actions">
+      <a class="btn btn--ghost" href="/confidentialite">Confidentialité</a>
+    </div>
+  </div>
+
+  <script>
+    import '../scripts/unsubscribe';
+  </script>
+</Page>

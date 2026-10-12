@@ -1,0 +1,457 @@
+/* Jetons de design et styles communs. Les couleurs viennent du logo (marine #032042, orange #e06115) ;
+   les couples texte/fond ont été vérifiés au contraste WCAG AA : le blanc sur l'orange exact du logo n'atteint
+   que 3,6 (trop faible pour un bouton), d'où l'orange plus profond des boutons et du texte sur fond clair. */
+
+:root {
+  color-scheme: light;
+
+  --navy-950: #021529;
+  --navy-900: #032042;
+  --navy-800: #0a3166;
+  --navy-700: #174786;
+
+  --orange-logo: #e06115;
+  --orange-accent: #f07a2c; /* sur fond marine : 5,8:1 */
+  --orange-600: #c4530e; /* fond de bouton, blanc dessus : 4,6:1 */
+  --orange-700: #a8450a; /* texte orange sur fond clair : 5,6:1 ; survol des boutons */
+  --orange-100: #fdeee3;
+
+  --sand-50: #fbf8f3;
+  --sand-100: #f4eee4;
+  --sand-200: #e9dfcf;
+
+  --ink: #0d1b2d;
+  --ink-soft: #4a5a6e;
+  --on-dark-soft: #b8c6d9;
+  --white: #ffffff;
+  --success: #1f7a4d;
+  --danger: #b3261e;
+  --danger-on-dark: #ff8a80;
+
+  --line: rgba(3, 32, 66, 0.14);
+  --line-on-dark: rgba(255, 255, 255, 0.18);
+
+  --radius-sm: 0.625rem;
+  --radius: 1rem;
+  --radius-lg: 1.75rem;
+  --shadow-soft:
+    0 1px 2px rgba(3, 32, 66, 0.06), 0 12px 32px -8px rgba(3, 32, 66, 0.14);
+
+  --font:
+    'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', Roboto, sans-serif;
+
+  --gutter: clamp(1.25rem, 5vw, 3rem);
+  --maxw: 72rem;
+  --header-h: 4.25rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 1rem);
+  /* clip (et non hidden) : n'empêche pas le positionnement « sticky » du récit */
+  overflow-x: clip;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--sand-50);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* L'attribut hidden doit toujours gagner : un « display » posé par une classe (grid, flex…) l'écraserait */
+[hidden] {
+  display: none !important;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+figure,
+dl,
+dd {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--orange-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--orange-logo);
+  color: var(--white);
+}
+
+/* ---------- mise en page ---------- */
+
+.container {
+  width: min(100% - 2 * var(--gutter), var(--maxw));
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: clamp(4.5rem, 10vw, 8rem);
+}
+
+.on-dark {
+  color: var(--white);
+  background: var(--navy-900);
+  --soft: var(--on-dark-soft);
+}
+
+.on-light {
+  --soft: var(--ink-soft);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  color: var(--navy-900);
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ---------- typographie ---------- */
+
+h1,
+h2,
+h3 {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 6.6vw, 4.75rem);
+  line-height: 1.02;
+}
+
+h2 {
+  font-size: clamp(1.95rem, 4.2vw, 3.1rem);
+  line-height: 1.08;
+}
+
+h3 {
+  font-size: 1.25rem;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--orange-700);
+}
+
+.on-dark .eyebrow {
+  color: var(--orange-accent);
+}
+
+.lead {
+  font-size: clamp(1.125rem, 1.6vw, 1.3125rem);
+  line-height: 1.55;
+  color: var(--soft);
+  text-wrap: pretty;
+}
+
+.prose {
+  max-width: 44rem;
+}
+
+.prose > * + * {
+  margin-top: 1rem;
+}
+
+.prose h2 {
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  margin-top: 2.5rem;
+}
+
+.prose a {
+  color: var(--orange-700);
+  text-underline-offset: 0.2em;
+}
+
+.prose ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+
+.prose li + li {
+  margin-top: 0.4rem;
+}
+
+/* ---------- boutons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3.25rem;
+  padding: 0.75rem 1.6rem;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  background: var(--orange-600);
+  color: var(--white);
+  transition:
+    background-color 0.2s,
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.btn:hover {
+  background: var(--orange-700);
+  box-shadow: 0 10px 24px -8px rgba(196, 83, 14, 0.6);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn[disabled] {
+  opacity: 0.65;
+  cursor: progress;
+  box-shadow: none;
+}
+
+.btn--ghost {
+  background: transparent;
+  color: inherit;
+  border-color: currentColor;
+}
+
+.btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+}
+
+.on-light .btn--ghost:hover {
+  background: rgba(3, 32, 66, 0.06);
+}
+
+.btn--small {
+  min-height: 2.75rem;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.9375rem;
+}
+
+/* ---------- formulaires (liste d'attente, fiche, désinscription) ---------- */
+
+.field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.field > label,
+.field > .label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.field .hint {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--soft);
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  min-height: 3.25rem;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-sm);
+  font: inherit;
+  color: var(--ink);
+  background: var(--white);
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.textarea {
+  min-height: 7rem;
+  resize: vertical;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: #7a8899;
+}
+
+.input:hover,
+.select:hover,
+.textarea:hover {
+  border-color: rgba(3, 32, 66, 0.4);
+}
+
+.input:focus-visible,
+.select:focus-visible,
+.textarea:focus-visible {
+  outline: none;
+  border-color: var(--orange-600);
+  box-shadow: 0 0 0 4px rgba(224, 97, 21, 0.28);
+}
+
+.on-dark .input {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--line-on-dark);
+  color: var(--white);
+}
+
+.on-dark .input::placeholder {
+  color: #93a4bb;
+}
+
+.on-dark .input:hover {
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.on-dark .input:focus-visible {
+  border-color: var(--orange-accent);
+  box-shadow: 0 0 0 4px rgba(240, 122, 44, 0.35);
+}
+
+.check {
+  display: grid;
+  grid-template-columns: 1.25rem 1fr;
+  gap: 0.75rem;
+  align-items: start;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--soft);
+  cursor: pointer;
+}
+
+.check input {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0.15rem 0 0;
+  accent-color: var(--orange-600);
+  cursor: pointer;
+}
+
+.on-dark .check input {
+  accent-color: var(--orange-accent);
+}
+
+.check a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+}
+
+.form-status {
+  min-height: 1.5rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.form-status[data-state='error'] {
+  color: var(--danger);
+}
+
+.on-dark .form-status[data-state='error'] {
+  color: var(--danger-on-dark);
+}
+
+.form-status[data-state='busy'] {
+  color: var(--soft);
+  font-weight: 500;
+}
+
+/* Piège à robots : hors de l'écran et du clavier, jamais en display:none (certains robots l'ignorent) */
+.trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* ---------- apparition au scroll ----------
+   Masqué dès le premier affichage (pas de clignotement) seulement si le script peut tourner ET que les
+   animations sont permises. Si le script n'a pas démarré après 4 s, tout réapparaît (animation de secours) ;
+   le script, lui, désactive cette animation de secours dès son démarrage. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(1.75rem);
+    animation: reveal-fallback 0.01s linear 4s forwards;
+  }
+}
+
+@keyframes reveal-fallback {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

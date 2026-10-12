@@ -1,0 +1,160 @@
+---
+import Page from '../layouts/Page.astro';
+import { TEAM_SIZES, TRADES } from '../lib/waitlist-options';
+---
+
+<Page title="Confirmation de votre adresse — Drakko" noReferrer>
+  <!-- Une seule vue est visible à la fois (src/scripts/confirmation.ts) -->
+  <div data-view="loading" role="status">
+    <p class="lead">Confirmation de votre adresse en cours…</p>
+  </div>
+
+  <div data-view="invalid" hidden tabindex="-1">
+    <h1>Ce lien n'est plus valable.</h1>
+    <p class="lead">
+      Il a expiré, ou il a déjà été remplacé par un lien plus récent. Rouvrez le dernier email reçu, ou
+      inscrivez-vous de nouveau : un nouvel email vous sera envoyé.
+    </p>
+    <div class="page__actions">
+      <a class="btn" href="/#rejoindre">Recevoir un nouvel email</a>
+    </div>
+  </div>
+
+  <div data-view="error" hidden tabindex="-1">
+    <h1>Une erreur est survenue.</h1>
+    <p class="lead" data-error-text></p>
+    <div class="page__actions">
+      <button class="btn" type="button" data-retry>Réessayer</button>
+    </div>
+  </div>
+
+  <div data-view="confirmed" hidden tabindex="-1">
+    <p class="eyebrow">Adresse confirmée</p>
+    <h1>Merci, votre adresse est confirmée.</h1>
+    <p class="lead">
+      Nous vous prévenons dès que Drakko est prêt. Si vous avez une minute, aidez-nous à mieux vous connaître
+      : c'est facultatif.
+    </p>
+
+    <form class="profile" data-profile-form novalidate>
+      <h2>Aidez-nous à mieux vous connaître</h2>
+
+      <div class="field">
+        <label for="firstName">Prénom</label>
+        <input class="input" id="firstName" name="firstName" type="text" autocomplete="given-name" maxlength="80" />
+      </div>
+
+      <div class="field">
+        <label for="company">Entreprise</label>
+        <input class="input" id="company" name="company" type="text" autocomplete="organization" maxlength="120" />
+      </div>
+
+      <div class="profile__pair">
+        <div class="field">
+          <label for="trade">Métier</label>
+          <select class="select" id="trade" name="trade">
+            <option value="">Choisir…</option>
+            {TRADES.map((trade) => <option value={trade.value}>{trade.label}</option>)}
+          </select>
+        </div>
+        <div class="field">
+          <label for="teamSize">Taille de l'équipe</label>
+          <select class="select" id="teamSize" name="teamSize">
+            <option value="">Choisir…</option>
+            {TEAM_SIZES.map((size) => <option value={size.value}>{size.label}</option>)}
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="phone">Téléphone <span class="hint">(facultatif)</span></label>
+        <input
+          class="input"
+          id="phone"
+          name="phone"
+          type="tel"
+          inputmode="tel"
+          autocomplete="tel"
+          maxlength="30"
+          pattern="[0-9+\(\)\.\s\-]*"
+        />
+      </div>
+
+      <div class="field">
+        <label for="painPoint">
+          Qu'est-ce qui vous fait perdre le plus de temps ou d'argent en fin de chantier ?
+        </label>
+        <textarea class="textarea" id="painPoint" name="painPoint" maxlength="500" rows="4"></textarea>
+        <span class="hint" data-count aria-live="off">0 / 500</span>
+      </div>
+
+      <fieldset class="profile__pilot">
+        <legend class="visually-hidden">Test en avant-première</legend>
+        <label class="check">
+          <input type="checkbox" name="pilotInterest" />
+          <span>
+            Je veux tester Drakko en avant-première (gratuit, en échange de vos retours, places limitées).
+          </span>
+        </label>
+        <label class="check" data-consent-row hidden>
+          <input type="checkbox" name="pilotContactConsent" />
+          <span>J'accepte d'être contacté(e) par email ou téléphone pour organiser ce test.</span>
+        </label>
+      </fieldset>
+
+      <button class="btn" type="submit" data-submit>Enregistrer</button>
+      <p class="form-status" role="status" aria-live="polite" data-status></p>
+    </form>
+  </div>
+
+  <div data-view="saved" hidden tabindex="-1">
+    <p class="eyebrow">C'est enregistré</p>
+    <h1>Merci !</h1>
+    <p class="lead">Nous vous écrirons dès que Drakko sera prêt, et pour organiser le test si vous l'avez demandé.</p>
+    <div class="page__actions">
+      <a class="btn btn--ghost" href="/">Retour à l'accueil</a>
+    </div>
+  </div>
+
+  <script>
+    import '../scripts/confirmation';
+  </script>
+</Page>
+
+<style>
+  .profile {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+    padding: clamp(1.25rem, 4vw, 2rem);
+    border-radius: var(--radius);
+    background: var(--white);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .profile h2 {
+    font-size: 1.375rem;
+    letter-spacing: -0.02em;
+  }
+
+  .profile__pair {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .profile__pilot {
+    display: grid;
+    gap: 0.9rem;
+    margin: 0;
+    padding: 1.1rem 1.25rem;
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--sand-50);
+  }
+
+  @media (min-width: 36rem) {
+    .profile__pair {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

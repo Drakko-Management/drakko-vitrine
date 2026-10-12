@@ -1,0 +1,90 @@
+---
+const roles = [
+  {
+    title: 'Le dirigeant',
+    text: 'Crée les chantiers, affecte l’équipe, retrouve chaque procès-verbal.',
+  },
+  {
+    title: 'Le chef de chantier',
+    text: 'Clôture le chantier et envoie le lien de signature au client.',
+  },
+  {
+    title: 'L’employé',
+    text: 'Photographie l’avant et l’après, ajoute son commentaire.',
+  },
+];
+---
+
+<section class="section team on-light" id="equipe" aria-labelledby="equipe-titre">
+  <div class="container">
+    <p class="eyebrow" data-reveal>Pour toute l'équipe</p>
+    <h2 id="equipe-titre" data-reveal>Chacun a les droits qu'il lui faut, et seulement ceux-là.</h2>
+
+    <ul class="team__roles">
+      {
+        roles.map((role, i) => (
+          <li class="team__role" data-reveal>
+            <span class="team__index" aria-hidden="true">{i + 1}</span>
+            <h3>{role.title}</h3>
+            <p>{role.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="lead team__where" data-reveal>
+      Sur téléphone, tablette ou ordinateur, depuis le navigateur, sans passer par une boutique
+      d'applications. Disponible en 5 langues.
+    </p>
+  </div>
+</section>
+
+<style>
+  .team h2 {
+    margin-top: 0.75rem;
+    max-width: 22ch;
+  }
+
+  .team__roles {
+    display: grid;
+    gap: 1rem;
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .team__role {
+    display: grid;
+    gap: 0.5rem;
+    align-content: start;
+    padding: 1.75rem;
+    border-radius: var(--radius);
+    background: var(--white);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .team__index {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    margin-bottom: 0.5rem;
+    border-radius: 50%;
+    font-weight: 800;
+    color: var(--white);
+    background: var(--navy-900);
+  }
+
+  .team__role p {
+    color: var(--ink-soft);
+  }
+
+  .team__where {
+    margin-top: clamp(2rem, 5vw, 3rem);
+    max-width: 38rem;
+  }
+
+  @media (min-width: 52rem) {
+    .team__roles {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

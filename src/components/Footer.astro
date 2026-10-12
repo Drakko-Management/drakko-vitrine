@@ -1,0 +1,83 @@
+---
+import { site } from '../site';
+---
+
+<footer class="footer on-dark">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <img src="/brand/mark-white-sm.webp" width="64" height="53" alt="" />
+      <p class="footer__name">DRAKKO</p>
+      <p class="footer__tagline">{site.tagline}</p>
+    </div>
+    <nav class="footer__links" aria-label="Informations légales">
+      <a href="/mentions-legales">Mentions légales</a>
+      <a href="/confidentialite">Confidentialité</a>
+      {site.contactEmail && <a href={`mailto:${site.contactEmail}`}>Contact</a>}
+    </nav>
+    <p class="footer__copy">© {site.year} Drakko</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--navy-950);
+    padding-block: 3.5rem 2.5rem;
+  }
+
+  .footer__inner {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .footer__brand img {
+    height: 3.25rem;
+    width: auto;
+    margin-bottom: 0.9rem;
+  }
+
+  .footer__name {
+    font-weight: 800;
+    letter-spacing: 0.22em;
+  }
+
+  .footer__tagline {
+    margin-top: 0.25rem;
+    font-size: 0.9375rem;
+    color: var(--orange-accent);
+    font-weight: 600;
+  }
+
+  .footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.75rem;
+    font-size: 0.9375rem;
+  }
+
+  .footer__links a {
+    color: var(--on-dark-soft);
+    text-underline-offset: 0.2em;
+  }
+
+  .footer__links a:hover {
+    color: var(--white);
+  }
+
+  .footer__copy {
+    font-size: 0.875rem;
+    color: var(--on-dark-soft);
+  }
+
+  @media (min-width: 48rem) {
+    .footer__inner {
+      grid-template-columns: 1fr auto;
+      align-items: end;
+    }
+
+    .footer__copy {
+      grid-column: 1 / -1;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line-on-dark);
+    }
+  }
+</style>

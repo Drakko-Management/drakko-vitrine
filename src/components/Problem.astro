@@ -1,0 +1,105 @@
+---
+const items = [
+  {
+    title: 'Du papier qui se perd',
+    text: 'Bons et notes introuvables le jour où il faudrait les montrer.',
+    icon: 'M7 3h7l5 5v13H7zM14 3v5h5M10 13h6M10 17h6',
+  },
+  {
+    title: 'Des tableaux Excel',
+    text: 'À ressaisir, à tenir à jour, à retrouver.',
+    icon: 'M4 5h16v14H4zM4 10h16M4 15h16M10 5v14',
+  },
+  {
+    title: 'Des photos dans les téléphones',
+    text: 'Éparpillées, jamais rangées avec le bon chantier.',
+    icon: 'M4 8h4l2-3h4l2 3h4v11H4zM12 17a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z',
+  },
+  {
+    title: 'Des accords donnés à l’oral',
+    text: 'Difficiles à retrouver le moment venu.',
+    icon: 'M5 5h14v10H11l-4 4v-4H5z',
+  },
+];
+---
+
+<section class="section problem on-light" id="probleme" aria-labelledby="probleme-titre">
+  <div class="container">
+    <p class="eyebrow" data-reveal>Aujourd'hui</p>
+    <h2 id="probleme-titre" data-reveal>Le suivi de chantier tient à un fil.</h2>
+
+    <ul class="problem__grid">
+      {
+        items.map((item) => (
+          <li class="problem__item" data-reveal>
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d={item.icon} />
+            </svg>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="lead problem__close" data-reveal>
+      Et en fin de chantier, rien de standard pour garder une trace de ce qui a été fait.
+    </p>
+  </div>
+</section>
+
+<style>
+  .problem {
+    background: var(--sand-100);
+  }
+
+  .problem h2 {
+    margin-top: 0.75rem;
+    max-width: 18ch;
+  }
+
+  .problem__grid {
+    display: grid;
+    gap: 1rem;
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .problem__item {
+    display: grid;
+    gap: 0.5rem;
+    align-content: start;
+    padding: 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--sand-50);
+  }
+
+  .problem__item svg {
+    color: var(--orange-700);
+    margin-bottom: 0.4rem;
+  }
+
+  .problem__item p {
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+  }
+
+  .problem__close {
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+    max-width: 36rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  @media (min-width: 40rem) {
+    .problem__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .problem__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

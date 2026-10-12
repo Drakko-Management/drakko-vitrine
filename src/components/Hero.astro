@@ -1,0 +1,128 @@
+---
+import Phone from './Phone.astro';
+import Screen from './Screen.astro';
+import WaitlistForm from './WaitlistForm.astro';
+---
+
+<section class="hero on-dark" id="accueil" data-hero>
+  <img class="hero__mark" src="/brand/mark-white.webp" width="520" height="429" alt="" aria-hidden="true" data-parallax />
+
+  <div class="container hero__grid">
+    <div class="hero__copy">
+      <p class="eyebrow" data-reveal>En cours de finalisation · Suivi de chantier</p>
+      <h1 data-reveal>Chaque chantier terminé, documenté et signé.</h1>
+      <p class="lead" data-reveal>
+        Drakko, c'est le suivi de chantier pour les artisans et entreprises du bâtiment et de l'extérieur :
+        photos avant/après, validation du client sur son téléphone, procès-verbal PDF signé. Fini le papier,
+        Excel et les photos perdues dans les téléphones.
+      </p>
+
+      <div class="hero__form" data-reveal>
+        <WaitlistForm id="hero" />
+      </div>
+
+      <p class="hero__alt" data-reveal>
+        <a href="#rejoindre">Tester en avant-première <span aria-hidden="true">→</span></a>
+      </p>
+
+      <p class="hero__trades" data-reveal>
+        Pour les paysagistes, plombiers, électriciens, peintres, maçons et couvreurs.
+      </p>
+    </div>
+
+    <div class="hero__visual" data-reveal>
+      <div class="hero__phone" data-hero-phone>
+        <Phone>
+          <Screen name="pdf" />
+        </Phone>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 100svh;
+    padding-top: calc(var(--header-h) + clamp(2rem, 6vw, 4.5rem));
+    padding-bottom: clamp(3rem, 7vw, 6rem);
+    background:
+      radial-gradient(60rem 38rem at 88% 8%, rgba(23, 71, 134, 0.6), transparent 62%),
+      radial-gradient(44rem 30rem at -6% 104%, rgba(224, 97, 21, 0.2), transparent 62%),
+      var(--navy-900);
+  }
+
+  .hero__mark {
+    position: absolute;
+    z-index: -1;
+    right: -14%;
+    bottom: -9%;
+    width: min(54rem, 110vw);
+    height: auto;
+    opacity: 0.055;
+    pointer-events: none;
+  }
+
+  .hero__grid {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .hero__copy {
+    display: grid;
+    gap: 1.5rem;
+    justify-items: start;
+  }
+
+  .hero__copy .lead {
+    max-width: 34rem;
+  }
+
+  .hero__form {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .hero__alt a {
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--orange-accent);
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+  }
+
+  .hero__alt a:hover {
+    border-color: currentColor;
+  }
+
+  .hero__trades {
+    font-size: 0.9375rem;
+    color: var(--on-dark-soft);
+    max-width: 30rem;
+  }
+
+  .hero__visual {
+    display: grid;
+    place-items: center;
+  }
+
+  .hero__phone {
+    --phone-w: min(15rem, 62vw);
+    transform: rotate(3deg);
+  }
+
+  @media (min-width: 62rem) {
+    .hero__grid {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: 4rem;
+    }
+
+    .hero__phone {
+      --phone-w: 19rem;
+      transform: rotate(4deg);
+    }
+  }
+</style>

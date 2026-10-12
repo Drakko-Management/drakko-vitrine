@@ -1,0 +1,109 @@
+---
+const questions = [
+  {
+    q: 'Quand Drakko sera-t-il disponible ?',
+    a: 'Nous finalisons l’application et la testons sur de vrais chantiers. Les personnes inscrites seront prévenues en premier.',
+  },
+  {
+    q: 'Combien ça coûtera ?',
+    a: 'Le prix sera annoncé au lancement.',
+  },
+  {
+    q: 'Sur quels appareils ?',
+    a: 'Téléphone, tablette et ordinateur, depuis le navigateur. Vous pouvez l’ajouter à l’écran d’accueil, sans boutique d’applications.',
+  },
+  {
+    q: 'Mon client doit-il installer quelque chose ?',
+    a: 'Non. Il reçoit un lien par email et signe sur son téléphone.',
+  },
+  {
+    q: 'Mes données sont-elles protégées ?',
+    a: 'Les données de chaque entreprise sont séparées de celles des autres, un chantier signé ne peut plus être modifié ni supprimé, et la double authentification est obligatoire pour les administrateurs.',
+  },
+];
+---
+
+<section class="section faq on-light" id="faq" aria-labelledby="faq-titre">
+  <div class="container faq__inner">
+    <div class="faq__head">
+      <p class="eyebrow" data-reveal>Questions</p>
+      <h2 id="faq-titre" data-reveal>Ce qu'on nous demande souvent.</h2>
+    </div>
+
+    <div class="faq__list" data-reveal>
+      {
+        questions.map((item) => (
+          <details>
+            <summary>
+              <span>{item.q}</span>
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            </summary>
+            <p>{item.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq__inner {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .faq__head h2 {
+    margin-top: 0.75rem;
+  }
+
+  .faq__list {
+    border-top: 1px solid var(--line);
+  }
+
+  details {
+    border-bottom: 1px solid var(--line);
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.35rem 0;
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary svg {
+    flex: none;
+    color: var(--orange-700);
+    transition: transform 0.25s;
+  }
+
+  details[open] summary svg {
+    transform: rotate(45deg);
+  }
+
+  details p {
+    padding-bottom: 1.5rem;
+    max-width: 38rem;
+    color: var(--ink-soft);
+  }
+
+  @media (min-width: 62rem) {
+    .faq__inner {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: 5rem;
+      align-items: start;
+    }
+  }
+</style>

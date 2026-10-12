@@ -1,0 +1,55 @@
+---
+// Cadre de téléphone. Largeur réglable avec --phone-w ; le contenu se met à l'échelle tout seul
+// (unités de conteneur, voir Screen.astro). Purement décoratif : le texte de la page dit la même chose.
+---
+
+<div class="phone" aria-hidden="true">
+  <div class="phone__frame">
+    <span class="phone__island"></span>
+    <div class="phone__screen">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<style>
+  .phone {
+    width: var(--phone-w, 17.5rem);
+    aspect-ratio: 9 / 19.2;
+  }
+
+  .phone__frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 2.6%;
+    border-radius: 13% / 6%;
+    background: linear-gradient(150deg, #20344f, #0a1a30 60%);
+    box-shadow:
+      inset 0 0 0 1.5px rgba(255, 255, 255, 0.16),
+      0 0 0 1px rgba(0, 0, 0, 0.5),
+      0 50px 80px -24px rgba(0, 0, 0, 0.6);
+  }
+
+  .phone__screen {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 10.5% / 4.9%;
+    background: #fff;
+    container-type: inline-size;
+  }
+
+  .phone__island {
+    position: absolute;
+    z-index: 2;
+    top: 3.4%;
+    left: 50%;
+    width: 27%;
+    height: 2.5%;
+    transform: translateX(-50%);
+    border-radius: 99px;
+    background: #000;
+  }
+</style>

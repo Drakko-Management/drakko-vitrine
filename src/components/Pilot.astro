@@ -1,0 +1,76 @@
+---
+import WaitlistForm from './WaitlistForm.astro';
+---
+
+<section class="section pilot on-light" id="rejoindre" aria-labelledby="rejoindre-titre">
+  <div class="container">
+    <div class="pilot__card on-dark" data-reveal>
+      <img class="pilot__mark" src="/brand/mark-white.webp" width="520" height="429" alt="" aria-hidden="true" />
+      <div class="pilot__copy">
+        <p class="eyebrow">Tester en avant-première</p>
+        <h2 id="rejoindre-titre">Essayez Drakko sur vos vrais chantiers.</h2>
+        <p class="lead">
+          Drakko est en cours de finalisation. Nous cherchons quelques entreprises pour l'essayer sur de
+          vrais chantiers, gratuitement, en échange de vos retours. Places limitées.
+        </p>
+        <WaitlistForm id="pilot" buttonLabel="Rejoindre la liste" />
+        <p class="pilot__next">
+          Après confirmation de votre adresse, vous pourrez demander à tester en avant-première.
+        </p>
+        <p class="pilot__origin">Conçu à partir des besoins d'une vraie entreprise de paysagisme.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pilot {
+    background: var(--sand-100);
+  }
+
+  .pilot__card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: clamp(2rem, 6vw, 4.5rem);
+    border-radius: var(--radius-lg);
+    background:
+      radial-gradient(34rem 24rem at 100% 0%, rgba(23, 71, 134, 0.7), transparent 65%),
+      radial-gradient(30rem 22rem at 0% 100%, rgba(224, 97, 21, 0.22), transparent 65%),
+      var(--navy-900);
+    box-shadow: 0 40px 80px -30px rgba(3, 32, 66, 0.55);
+  }
+
+  .pilot__mark {
+    position: absolute;
+    z-index: -1;
+    right: -6%;
+    bottom: -14%;
+    width: min(30rem, 80%);
+    height: auto;
+    opacity: 0.06;
+    pointer-events: none;
+  }
+
+  .pilot__copy {
+    display: grid;
+    gap: 1.25rem;
+    max-width: 38rem;
+  }
+
+  .pilot__copy h2 {
+    margin-top: 0.1rem;
+  }
+
+  .pilot__next {
+    font-size: 0.9375rem;
+    color: var(--on-dark-soft);
+  }
+
+  .pilot__origin {
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line-on-dark);
+    font-size: 0.9375rem;
+    color: var(--on-dark-soft);
+  }
+</style>

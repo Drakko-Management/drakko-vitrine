@@ -1,0 +1,80 @@
+---
+// Petite scène de chantier dessinée, en aplats (pas une photo : voir 11-teaser-content.md, « Visuels »).
+// `before` : terrain à l'abandon ; `after` : le même, repris. `variant` décale les éléments pour varier.
+interface Props {
+  kind: 'before' | 'after';
+  variant?: number;
+}
+const { kind, variant = 0 } = Astro.props;
+const shift = [0, 14, -10, 6][variant % 4];
+const weeds = [
+  [14, 66],
+  [38, 74],
+  [62, 70],
+  [86, 78],
+  [104, 68],
+  [26, 82],
+  [76, 84],
+];
+---
+
+<svg viewBox="0 0 120 90" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  {
+    kind === 'before' ? (
+      <>
+        <rect width="120" height="90" fill="#cfe2f0" />
+        <ellipse cx="22" cy="48" rx="26" ry="12" fill="#86a173" />
+        <ellipse cx="96" cy="46" rx="30" ry="13" fill="#7a976a" />
+        <rect y="50" width="120" height="40" fill="#a68461" />
+        <ellipse cx="40" cy="70" rx="30" ry="9" fill="#97754f" />
+        <ellipse cx="90" cy="80" rx="26" ry="7" fill="#b39168" />
+        <g transform={`translate(${shift} 0)`}>
+          <path d="M18 56c-4-12 4-22 14-20 4-8 18-8 22 0 12-3 20 8 14 18-2 6-8 8-14 8H30c-8 0-13-2-12-6z" fill="#4d6a2f" />
+          <circle cx="34" cy="46" r="7" fill="#5f7f3c" />
+          <circle cx="50" cy="42" r="6" fill="#587735" />
+          <circle cx="62" cy="50" r="5" fill="#66863f" />
+        </g>
+        {weeds.map(([x, y]) => (
+          <path d={`M${x} ${y}l2-9 2 7 2-8 2 8 2-6 2 8z`} fill="#7b8a3a" />
+        ))}
+        <rect x={84 + shift / 2} y="58" width="18" height="9" rx="2" fill="#7a6a58" />
+        <rect x={90 + shift / 2} y="54" width="10" height="6" rx="1.5" fill="#8f7d69" />
+      </>
+    ) : (
+      <>
+        <rect width="120" height="90" fill="#bfe0f5" />
+        <ellipse cx="30" cy="16" rx="14" ry="5" fill="#ffffff" opacity="0.85" />
+        <ellipse cx="92" cy="22" rx="16" ry="5" fill="#ffffff" opacity="0.8" />
+        <ellipse cx="24" cy="46" rx="28" ry="12" fill="#5f9460" />
+        <ellipse cx="98" cy="45" rx="30" ry="12" fill="#558a56" />
+        <rect y="50" width="120" height="40" fill="#5aa83c" />
+        {[0, 1, 2, 3, 4, 5].map((i) => (
+          <rect x={i * 20 + 8} y="50" width="10" height="40" fill="#4f9c35" />
+        ))}
+        <polygon points="46,90 58,90 70,60 64,60" fill="#e5d9c3" />
+        <g transform={`translate(${shift} 0)`}>
+          <rect x="14" y="34" width="52" height="22" rx="4" fill="#2f6f33" />
+          <rect x="14" y="34" width="52" height="6" rx="3" fill="#3d8a3f" />
+        </g>
+        <circle cx="94" cy="64" r="8" fill="#3f8e46" />
+        <circle cx="104" cy="68" r="6" fill="#2f7a3a" />
+        {[
+          [90, 62],
+          [97, 66],
+          [102, 63],
+          [86, 70],
+        ].map(([x, y], i) => (
+          <circle cx={x} cy={y} r="1.6" fill={i % 2 ? '#ffffff' : '#f0a35e'} />
+        ))}
+      </>
+    )
+  }
+</svg>
+
+<style>
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+</style>

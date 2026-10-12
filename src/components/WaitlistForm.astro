@@ -1,0 +1,131 @@
+---
+// Étape 1 de la liste d'attente : l'adresse et le consentement. Le comportement est dans
+// src/scripts/waitlist-form.ts (appel de l'API, anti-robots). `id` rend les identifiants uniques quand la
+// page porte plusieurs formulaires.
+//
+// Les textes du consentement sont ceux de la version « 2026-10-v1 » (WAITLIST_CONSENT_VERSION dans
+// 03-back/src/waitlist/waitlist.service.ts, texte de référence dans 01-docs/11-teaser-content.md) : si on
+// les change, changer la version là-bas pour savoir à quoi chaque personne a consenti.
+interface Props {
+  id: string;
+  buttonLabel?: string;
+}
+const { id, buttonLabel = 'Être prévenu du lancement' } = Astro.props;
+---
+
+<div class="waitlist" data-waitlist>
+  <form class="waitlist__form" data-waitlist-form novalidate>
+    <div class="waitlist__row">
+      <div class="field waitlist__email">
+        <label class="visually-hidden" for={`${id}-email`}>Votre adresse email</label>
+        <input
+          class="input"
+          id={`${id}-email`}
+          name="email"
+          type="email"
+          inputmode="email"
+          autocomplete="email"
+          placeholder="vous@entreprise.fr"
+          maxlength="254"
+          required
+        />
+      </div>
+      <button class="btn" type="submit" data-submit>{buttonLabel}</button>
+    </div>
+
+    <label class="check">
+      <input type="checkbox" name="consent" required />
+      <span>Je souhaite être prévenu(e) du lancement de Drakko.</span>
+    </label>
+    <p class="waitlist__legal">
+      Vous pouvez vous désinscrire à tout moment. Vos données ne servent qu'à cela.
+      <a href="/confidentialite">En savoir plus (politique de confidentialité)</a>.
+    </p>
+
+    <!-- Piège à robots : un champ que seule une machine remplit -->
+    <div class="trap" aria-hidden="true">
+      <label>Ne pas remplir <input name="website" tabindex="-1" autocomplete="off" /></label>
+    </div>
+    <div data-turnstile></div>
+
+    <p class="form-status" role="status" aria-live="polite" data-status></p>
+  </form>
+
+  <div class="waitlist__done" data-done hidden tabindex="-1">
+    <p class="waitlist__done-title">Merci !</p>
+    <p>
+      Un email de confirmation vient d'être envoyé à <strong data-email></strong>. Cliquez sur le lien qu'il
+      contient pour valider votre adresse.
+    </p>
+    <p class="waitlist__hint">
+      Rien reçu ? Regardez vos courriers indésirables, puis réessayez dans une demi-heure.
+    </p>
+  </div>
+</div>
+
+<style>
+  .waitlist {
+    max-width: 36rem;
+  }
+
+  .waitlist__form {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .waitlist__row {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .waitlist__legal {
+    margin-top: -0.35rem;
+    padding-left: 2rem;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    color: var(--soft);
+  }
+
+  .waitlist__legal a {
+    text-underline-offset: 0.2em;
+  }
+
+  .waitlist__done {
+    display: grid;
+    gap: 0.6rem;
+    padding: 1.4rem 1.5rem;
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .waitlist__done:focus-visible {
+    outline-offset: 4px;
+  }
+
+  .on-light .waitlist__done {
+    background: var(--white);
+  }
+
+  .waitlist__done-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .waitlist__hint {
+    font-size: 0.9375rem;
+    color: var(--soft);
+  }
+
+  .on-dark .waitlist__done {
+    border-color: var(--line-on-dark);
+  }
+
+  @media (min-width: 36rem) {
+    .waitlist__row {
+      grid-template-columns: 1fr auto;
+      align-items: start;
+    }
+  }
+</style>
